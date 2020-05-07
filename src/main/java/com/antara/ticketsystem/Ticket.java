@@ -12,6 +12,13 @@ public class Ticket {
         this.description = description;
     }
 
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "description='" + description + '\'' +
+                '}';
+    }
+
     public String getDescription() {
         return description;
     }

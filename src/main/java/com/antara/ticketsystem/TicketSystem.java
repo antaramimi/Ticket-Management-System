@@ -1,13 +1,12 @@
 package com.antara.ticketsystem;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class TicketSystem {
     //Database:
-    HashMap<String, ArrayList<Ticket>> map = new HashMap<>();
+    HashMap<String, List<Ticket>> nameToTicketsMap = new HashMap<>();
+
+    //tickets.add(ticket);
 
 
     public static void main(String[] args) {
@@ -15,17 +14,12 @@ public class TicketSystem {
         sm.showMenu();
     }
 
-    public void printDetailsforUser(String name) {
-        for (Map.Entry<String, ArrayList<Ticket>> entry : map.entrySet()) {
-            if (name.equals(entry.getKey())) {
-                ArrayList<Ticket> value = entry.getValue();
-                for (Ticket ticketDetails : value) {
-                    System.out.println("key : " + name + " value : " + ticketDetails.getDescription());
-                }
-            }
 
-        }
+    public void printAllTickets(String name) {
+        List<Ticket> tickets = nameToTicketsMap.get(name);
+        System.out.println(name+" "+tickets);
     }
+
 
     public void showMenu() {
         int option;
@@ -48,18 +42,20 @@ public class TicketSystem {
                     User user = new User(name, email);
                     System.out.println("Enter ticket issue: ");
                     String description = sc.nextLine();
-                    Ticket ticket = new Ticket(description);
-                    ArrayList<Ticket> tickets = new ArrayList<>();
-                    tickets.add(ticket);
-                    map.put(name, tickets);
+
+                    List<Ticket> tickets = nameToTicketsMap.get(name);
+                    if (tickets == null) {
+                        tickets = new ArrayList<>();
+                    }
+                    tickets.add(new Ticket(description));
+                    nameToTicketsMap.put(name, tickets);
                     break;
 
                 case 2:
                     System.out.println("Enter your name");
                     String name1 = sc.nextLine();
                     System.out.println("Fetching tickets...");
-                    printDetailsforUser(name1);
-                    // print all data from map
+                    printAllTickets(name1);
                     break;
                 case 3:
                     System.exit(0);
