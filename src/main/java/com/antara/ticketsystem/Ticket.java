@@ -14,9 +14,8 @@ public class Ticket {
 
     @Override
     public String toString() {
-        return "Ticket{" +
-                "description='" + description + '\'' +
-                '}';
+        return "Ticket :" +
+                "description='" + description + '\'' ;
     }
 
     public String getDescription() {

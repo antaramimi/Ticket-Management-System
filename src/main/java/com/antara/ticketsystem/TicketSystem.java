@@ -14,10 +14,11 @@ public class TicketSystem {
         sm.showMenu();
     }
 
-
-    public void printAllTickets(String name) {
+    public void printTickets(String name) {
         List<Ticket> tickets = nameToTicketsMap.get(name);
-        System.out.println(name+" "+tickets);
+        for (int i = 0; i < tickets.size(); i++) {
+            System.out.println(i + ": " + " " + tickets.get(i));
+        }
     }
 
 
@@ -29,7 +30,8 @@ public class TicketSystem {
             Scanner sc = new Scanner(System.in);
             System.out.println("1: File a ticket");
             System.out.println("2: Get all tickets");
-            System.out.println("3: Exit");
+            System.out.println("3: Edit the tickets description");
+            System.out.println("4: Exit");
 
             option = Integer.valueOf(sc.nextLine());
 
@@ -55,9 +57,22 @@ public class TicketSystem {
                     System.out.println("Enter your name");
                     String name1 = sc.nextLine();
                     System.out.println("Fetching tickets...");
-                    printAllTickets(name1);
+                    printTickets(name1);
                     break;
                 case 3:
+                    System.out.println("Enter your name");
+                    String nameOftheUser = sc.nextLine();
+                    printTickets(nameOftheUser);
+                    System.out.println("Select a record ");
+                    int record = sc.nextInt();
+                    List<Ticket> ticketToupdates = nameToTicketsMap.get(nameOftheUser);
+                    Ticket tickekToUpdate = ticketToupdates.get(record);
+                    System.out.println("Update the description ");
+                    String descriptionTOupdate = sc.nextLine();
+                    tickekToUpdate.setDescription(descriptionTOupdate);
+                    System.out.println("The record updated!");
+                    break;
+                case 4:
                     System.exit(0);
                 default:
                     System.out.println("Wrong choice!");
